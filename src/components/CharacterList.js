@@ -6,27 +6,15 @@ import MovieList from './MovieList';
 function CharacterList({ characters }) {
   return (
     <div>
-      <Segment>
-        <Grid columns={2}>
-          {characters.map((character) => {
-            return (
-              <Fragment key={character.url}>
-                <Segment>
-                  <Grid columns={2}>
-                    <Grid.Column>
-                      <CharacterCard character={character} />
-                    </Grid.Column>
-                    <Grid.Column>
-                      <MovieList movies={character.films} />
-                    </Grid.Column>
-                  </Grid>
-                  <Divider vertical></Divider>
-                </Segment>
-              </Fragment>
-            );
-          })}
-        </Grid>
-      </Segment>
+      <Grid columns={3} centered>
+        {characters.map((character) => {
+          return (
+            <Fragment>
+              <CharacterCard character={character} />
+            </Fragment>
+          );
+        })}
+      </Grid>
     </div>
   );
 }

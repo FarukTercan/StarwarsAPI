@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MovieCard from './MovieCard';
-import { Card, Dimmer, Loader } from 'semantic-ui-react';
+import { Dimmer, Loader } from 'semantic-ui-react';
 import ErrorMessage from './ErrorMessage';
 
 function MovieList({ movies }) {
@@ -34,10 +34,7 @@ function MovieList({ movies }) {
           <Loader inverted>Loading</Loader>
         </Dimmer>
       ) : (
-        <Card>
-          <Card.Header>Movies</Card.Header>
-          <MovieCard movies={films} />
-        </Card>
+        <MovieCard movies={films} />
       )}
     </div>
   );

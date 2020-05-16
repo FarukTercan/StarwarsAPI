@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Card, Container, Button } from 'semantic-ui-react';
+import { Card, Container, Button, Icon } from 'semantic-ui-react';
 
 function SelectedMovie({ movies }) {
   const { ID } = useParams();
@@ -24,13 +24,13 @@ function SelectedMovie({ movies }) {
             <Card.Header>{title}</Card.Header>
 
             <Card.Description>
-              <strong>Episode {episode_id}</strong>
+              <strong>Episode:</strong> {episode_id}
               <br />
               <br />
-              <strong>Director {director}</strong>
+              <strong>Director:</strong> {director}
               <br />
               <br />
-              <strong>{opening_crawl}</strong>
+              {opening_crawl}
             </Card.Description>
           </Card.Content>
           <Card.Content extra>
@@ -40,7 +40,10 @@ function SelectedMovie({ movies }) {
 
         <div className='btn'>
           <Link to='/'>
-            <Button color='black'>Back to actor search</Button>
+            <Button color='black'>
+              <Icon name='left arrow' />
+              Back to actor search
+            </Button>
           </Link>
         </div>
       </Container>

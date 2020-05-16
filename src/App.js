@@ -37,9 +37,9 @@ function App() {
     <div className='App'>
       <Router>
         <Switch>
-          <Route exact path='/'>
-            <Container>
-              <Navbar />
+          <Container>
+            <Navbar />
+            <Route exact path='/'>
               {error ? (
                 <ErrorMessage />
               ) : loading ? (
@@ -49,11 +49,11 @@ function App() {
               ) : (
                 <CharacterList characters={characters} />
               )}
-            </Container>
-          </Route>
-          <Route exact path='/:ID'>
-            {movies && <SelectedMovie movies={movies} />}
-          </Route>
+            </Route>
+            <Route exact path='/:ID'>
+              {movies && <SelectedMovie movies={movies} />}
+            </Route>
+          </Container>
         </Switch>
       </Router>
     </div>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Menu, Container, Image } from 'semantic-ui-react';
-import SearchBar from './SearchBar';
 
 function Navbar() {
   return (

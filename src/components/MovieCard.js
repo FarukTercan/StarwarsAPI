@@ -3,10 +3,9 @@ import { Link } from 'react-router-dom';
 
 function MovieCard({ movies }) {
   const [ID, setID] = useState('');
-  const fiveMovies = movies.slice(0, 5);
   return (
     <div>
-      {fiveMovies.map((movie) => {
+      {movies.map((movie) => {
         return (
           <Link to={`/${movie.episode_id}`}>
             <ul

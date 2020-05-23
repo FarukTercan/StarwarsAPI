@@ -17,20 +17,20 @@ function App() {
     async function fetchCharacters() {
       try {
         // Characters data
-        let charactersMain = [];
-
+        let allCharacters = [];
         let characters = await cachedFetch(
           'https://swapi.dev/api/people/?format=json'
         );
 
-        charactersMain = [...characters.results];
+        allCharacters = [...characters.results];
 
+        // fetch all pages
         while (characters.next !== null) {
           characters = await cachedFetch(characters.next);
-          charactersMain = [...charactersMain, ...characters.results];
+          allCharacters = [...allCharacters, ...characters.results];
         }
 
-        setCharacters(charactersMain);
+        setCharacters(allCharacters);
 
         // Films data
         let movies = await cachedFetch(

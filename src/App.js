@@ -5,6 +5,7 @@ import { Container, Dimmer, Loader } from 'semantic-ui-react';
 import CharacterList from './components/CharacterList';
 import ErrorMessage from './components/ErrorMessage';
 import SelectedMovie from './components/SelectedMovie';
+import cachedFetch from './cachedFetch';
 
 function App() {
   const [characters, setCharacters] = useState([]);
@@ -16,14 +17,16 @@ function App() {
     async function fetchCharacters() {
       try {
         // Characters data
-        let res = await fetch('https://swapi.dev/api/people/?format=json');
-        let characters = await res.json();
-        console.log(characters);
+        let characters = await cachedFetch(
+          'https://swapi.dev/api/people/?format=json'
+        );
+
         setCharacters(characters.results);
 
         // Films data
-        let resMovie = await fetch('https://swapi.dev/api/films/?format=json');
-        let movies = await resMovie.json();
+        let movies = await cachedFetch(
+          'https://swapi.dev/api/films/?format=json'
+        );
         setMovies(movies.results);
 
         setLoading(false);
@@ -33,6 +36,7 @@ function App() {
     }
     fetchCharacters();
   }, []);
+
   return (
     <div className='App'>
       <Router>

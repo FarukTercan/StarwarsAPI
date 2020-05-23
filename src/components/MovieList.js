@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MovieCard from './MovieCard';
 import { Dimmer, Loader } from 'semantic-ui-react';
 import ErrorMessage from './ErrorMessage';
+import cachedFetch from './../cachedFetch';
 
 function MovieList({ movies }) {
   const [films, setFilms] = useState([]);
@@ -12,7 +13,7 @@ function MovieList({ movies }) {
     async function fetchMovies() {
       try {
         const allResponses = await Promise.all(
-          movies.map((url) => fetch(url).then((res) => res.json()))
+          movies.map((url) => cachedFetch(url))
         );
         setFilms(allResponses);
 
@@ -23,7 +24,7 @@ function MovieList({ movies }) {
       }
     }
     fetchMovies();
-  }, []);
+  }, [movies]);
 
   return (
     <div>

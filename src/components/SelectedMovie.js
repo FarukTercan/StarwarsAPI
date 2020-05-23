@@ -5,7 +5,9 @@ import { Card, Container, Button, Icon } from 'semantic-ui-react';
 function SelectedMovie({ movies }) {
   const { ID } = useParams();
 
-  const movieProfile = movies.find((movie) => movie.episode_id == ID);
+  const movieProfile = movies.find(
+    (movie) => movie.episode_id === parseInt(ID)
+  );
   const {
     title,
     episode_id,

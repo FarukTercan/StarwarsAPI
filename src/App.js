@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { Container, Dimmer, Loader } from 'semantic-ui-react';
@@ -50,23 +50,25 @@ function App() {
     <div className='App'>
       <Router>
         <Switch>
-          <Container>
-            <Navbar />
-            <Route exact path='/'>
-              {error ? (
-                <ErrorMessage />
-              ) : loading ? (
-                <Dimmer active inverted>
-                  <Loader inverted>Loading</Loader>
-                </Dimmer>
-              ) : (
-                <CharacterList characters={characters} />
-              )}
-            </Route>
-            <Route exact path='/:ID'>
-              {movies && <SelectedMovie movies={movies} />}
-            </Route>
-          </Container>
+          <Fragment>
+            <Container>
+              <Navbar />
+              <Route exact path='/'>
+                {error ? (
+                  <ErrorMessage />
+                ) : loading ? (
+                  <Dimmer active inverted>
+                    <Loader inverted>Loading</Loader>
+                  </Dimmer>
+                ) : (
+                  <CharacterList characters={characters} />
+                )}
+              </Route>
+              <Route exact path='/:ID'>
+                {movies && <SelectedMovie movies={movies} />}
+              </Route>
+            </Container>
+          </Fragment>
         </Switch>
       </Router>
     </div>

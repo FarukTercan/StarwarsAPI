@@ -37,7 +37,6 @@ function CharacterList({ currentCharacters, filterCharacters }) {
 
   const handleGetAll = (e) => {
     filterCharacters('');
-    setSearch('');
   };
 
   return (

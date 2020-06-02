@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Grid } from 'semantic-ui-react';
 import MovieList from './MovieList';
 
-function CharacterCard({ character, movies }) {
+function CharacterCard({ character }) {
   return (
     <Grid>
       <Grid.Column>

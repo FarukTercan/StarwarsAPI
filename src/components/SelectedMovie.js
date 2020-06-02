@@ -5,15 +5,14 @@ import { Card, Container, Button, Icon } from 'semantic-ui-react';
 function SelectedMovie({ movies }) {
   const { ID } = useParams();
 
-  const movieProfile = movies.find(
-    (movie) => movie.episode_id === parseInt(ID)
-  );
+  const movieProfile = movies.find((movie) => movie.episodeId === parseInt(ID));
+
   const {
     title,
-    episode_id,
-    opening_crawl,
+    episodeId,
+    openingCrawl,
     director,
-    release_date
+    releaseDate
   } = movieProfile;
 
   return (
@@ -26,17 +25,17 @@ function SelectedMovie({ movies }) {
             <Card.Header>{title}</Card.Header>
 
             <Card.Description>
-              <strong>Episode:</strong> {episode_id}
+              <strong>Episode:</strong> {episodeId}
               <br />
               <br />
               <strong>Director:</strong> {director}
               <br />
               <br />
-              {opening_crawl}
+              {openingCrawl}
             </Card.Description>
           </Card.Content>
           <Card.Content extra>
-            <strong>Release Date {release_date}</strong>
+            <strong>Release Date {releaseDate}</strong>
           </Card.Content>
         </Card>
 

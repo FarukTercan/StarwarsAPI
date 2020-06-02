@@ -1,0 +1,49 @@
+.page-nav {
+  margin: 20px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.page-nav .page-item {
+  float: left;
+}
+
+.page-nav .pagination {
+  float: left;
+  left: 50%;
+  position: relative;
+  list-style: none;
+}
+
+.page-nav .pagination > .page-item {
+  left: -50%;
+  position: relative;
+}
+
+.page-nav a {
+  transition: all 100ms ease-in-out 0s;
+  background-color: black;
+  border-radius: 5px 5px 5px 5px;
+  color: white;
+  display: block;
+  font: 12px/30px Arial, sans-serif;
+  height: 30px;
+  margin: 0 3px;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  width: 30px;
+}
+
+.page-nav .page-item a:hover {
+  background-color: #ff8c00;
+  color: #ffffff;
+}
+.page-nav .page-item .active a {
+  background-color: #ff8c00;
+  color: #ffffff;
+}
+.page-nav .page-item .active a:hover {
+  color: #ffffff;
+}

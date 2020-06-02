@@ -1,50 +1,57 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
 import { Container, Dimmer, Loader } from 'semantic-ui-react';
+import Navbar from './components/Navbar';
 import CharacterList from './components/CharacterList';
-import ErrorMessage from './components/ErrorMessage';
 import SelectedMovie from './components/SelectedMovie';
-import cachedFetch from './cachedFetch';
+import Pagination from './components/Pagination';
+import ErrorMessage from './components/ErrorMessage';
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
+import './App.css';
 
-function App() {
-  const [characters, setCharacters] = useState([]);
-  const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    async function fetchCharacters() {
-      try {
-        // Characters data
-        let allCharacters = [];
-        let characters = await cachedFetch(
-          'https://swapi.dev/api/people/?format=json'
-        );
-
-        allCharacters = [...characters.results];
-
-        // fetch all pages
-        while (characters.next !== null) {
-          characters = await cachedFetch(characters.next);
-          allCharacters = [...allCharacters, ...characters.results];
-        }
-
-        setCharacters(allCharacters);
-
-        // Films data
-        let movies = await cachedFetch(
-          'https://swapi.dev/api/films/?format=json'
-        );
-        setMovies(movies.results);
-
-        setLoading(false);
-      } catch (error) {
-        setError(true);
+const STAR_WARS_CHARACTERS = gql`
+  {
+    allPersons {
+      name
+      birthYear
+      height
+      gender
+      films {
+        title
+        episodeId
       }
     }
-    fetchCharacters();
-  }, []);
+    allFilms {
+      title
+      episodeId
+      openingCrawl
+      director
+      releaseDate
+    }
+  }
+`;
+
+function App() {
+  const {
+    loading: loadingCharacters,
+    error: errorCharacters,
+    data: dataCharacters
+  } = useQuery(STAR_WARS_CHARACTERS);
+
+  const [characters, setCharacters] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [cardsPerPage] = useState(9);
+
+  useEffect(() => {
+    if (dataCharacters) setCharacters(dataCharacters.allPersons);
+  }, [dataCharacters]);
+
+  // Get current characters for Pagination
+  const indexOfLastCard = currentPage * cardsPerPage;
+  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+  const currentCharacters = characters.slice(indexOfFirstCard, indexOfLastCard);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className='App'>
@@ -54,18 +61,34 @@ function App() {
             <Container>
               <Navbar />
               <Route exact path='/'>
-                {error ? (
+                {errorCharacters ? (
                   <ErrorMessage />
-                ) : loading ? (
+                ) : loadingCharacters ? (
                   <Dimmer active inverted>
                     <Loader inverted>Loading</Loader>
                   </Dimmer>
                 ) : (
-                  <CharacterList characters={characters} />
+                  <Fragment>
+                    {dataCharacters && currentCharacters && (
+                      <CharacterList
+                        characters={currentCharacters}
+                        dataCharacters={dataCharacters.allPersons}
+                      />
+                    )}
+                    {dataCharacters && (
+                      <Pagination
+                        cardsPerPage={cardsPerPage}
+                        totalCards={characters.length}
+                        paginate={paginate}
+                      />
+                    )}
+                  </Fragment>
                 )}
               </Route>
               <Route exact path='/:ID'>
-                {movies && <SelectedMovie movies={movies} />}
+                {dataCharacters && (
+                  <SelectedMovie movies={dataCharacters.allFilms} />
+                )}
               </Route>
             </Container>
           </Fragment>

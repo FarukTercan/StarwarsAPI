@@ -53,6 +53,14 @@ function App() {
   const currentCharacters = characters.slice(indexOfFirstCard, indexOfLastCard);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const filterCharacters = (value) => {
+    const filteredData = dataCharacters.allPersons.filter((character) => {
+      return character.name.toLowerCase().includes(value.toLowerCase());
+    });
+
+    setCharacters(filteredData);
+  };
+
   return (
     <div className='App'>
       <Router>
@@ -71,8 +79,8 @@ function App() {
                   <Fragment>
                     {dataCharacters && currentCharacters && (
                       <CharacterList
-                        characters={currentCharacters}
-                        dataCharacters={dataCharacters.allPersons}
+                        currentCharacters={currentCharacters}
+                        filterCharacters={filterCharacters}
                       />
                     )}
                     {dataCharacters && (

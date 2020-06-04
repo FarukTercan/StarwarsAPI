@@ -87,6 +87,7 @@ function App() {
                       <Pagination
                         cardsPerPage={cardsPerPage}
                         totalCards={characters.length}
+                        currentPage={currentPage}
                         paginate={paginate}
                       />
                     )}

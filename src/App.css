@@ -1,3 +1,12 @@
+.search-div {
+  margin-bottom: 10px;
+}
+
+.search-close {
+  display: flex;
+  margin-bottom: 10px;
+}
+
 .page-nav {
   margin: 20px 0;
   overflow: hidden;
@@ -46,4 +55,8 @@
 }
 .page-nav .page-item .active a:hover {
   color: #ffffff;
+}
+
+.page-link2 {
+  background-color: #ff8c00;
 }

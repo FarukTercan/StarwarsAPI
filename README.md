@@ -1,6 +1,7 @@
 
 
 # StarWarsAPI
+![alt text](https://i.pinimg.com/originals/a1/f5/18/a1f518957c80740830dec55930b16c0e.gif)
 
 > StarWarsAPI is a web app that uses the Star wars API (SWAPI) to display the list of films about the StarWars universe.
 > 
